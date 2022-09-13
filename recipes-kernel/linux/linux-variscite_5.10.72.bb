@@ -21,7 +21,7 @@ SRCBRANCH = "lf-5.10.y_var04"
 KERNEL_SRC ?= "git://github.com/varigit/linux-imx;protocol=https"
 SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
 SRC_URI += "file://0001-perf-tools-Add-an-option-to-build-without-libbfd.patch"
-SRCREV = "4d4fec83c664f4c7a614ee648442bf0e4b117e7c"
+SRCREV = "b559d42e828a9360549be6c718d6f271aab9b383"
 LINUX_VERSION = "5.10.72"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
@@ -42,7 +42,7 @@ DEFAULT_DTB:imx8mq-var-dart = "sd-lvds"
 DEFAULT_DTB:imx8qxp-var-som = "sd"
 DEFAULT_DTB:imx8qxpb0-var-som = "sd"
 DEFAULT_DTB:imx8qm-var-som = "lvds"
-DEFAULT_DTB_PREFIX:imx8mq-var-dart = "imx8mq-var-dart"
+DEFAULT_DTB_PREFIX:imx8mq-var-dart = "imx8mq-var-dart-dt8mcustomboard"
 DEFAULT_DTB_PREFIX:imx8qxp-var-som = "imx8qxp-var-som-symphony"
 DEFAULT_DTB_PREFIX:imx8qxpb0-var-som = "imx8qxp-var-som-symphony"
 DEFAULT_DTB_PREFIX:imx8qm-var-som = "imx8qm-var-som-symphony"
@@ -54,7 +54,7 @@ pkg_postinst:kernel-devicetree:append () {
 pkg_postinst:kernel-devicetree:append:imx8mq-var-dart () {
     cd $D/boot
     ln -s ${DEFAULT_DTB_PREFIX}-${DEFAULT_DTB}.dtb ${DEFAULT_DTB_PREFIX}.dtb
-    ln -s ${DEFAULT_DTB_PREFIX}-${DEFAULT_DTB}-cb12.dtb ${DEFAULT_DTB_PREFIX}-cb12.dtb
+    ln -s ${DEFAULT_DTB_PREFIX}-legacy-${DEFAULT_DTB}.dtb ${DEFAULT_DTB_PREFIX}-legacy.dtb
 }
 
 pkg_postinst:kernel-devicetree:append:imx8qxp-var-som () {
