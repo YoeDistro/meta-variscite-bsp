@@ -1,5 +1,8 @@
 INHERIT += "image-buildinfo"
 
+# Common override for all Variscite machines
+MACHINEOVERRIDES =. "var-som:"
+
 MACHINE_FEATURES += " pci bluetooth wifi screen"
 
 IMX_DEFAULT_BSP = "nxp"
@@ -9,6 +12,9 @@ USE_VT = "0"
 KERNEL_IMAGETYPE:mx8-nxp-bsp = "Image.gz"
 
 WKS_FILE:mx8-nxp-bsp = "imx-imx-boot-singlepart.wks.in"
+
+# Enable optee on iMX8 BSPs
+MACHINE_FEATURES:append:use-nxp-bsp = " optee"
 
 # Set a more generic tuning for code reuse across parts
 DEFAULTTUNE:mx8-nxp-bsp:fslc     ?= "armv8a-crc-crypto"
@@ -21,13 +27,6 @@ PREFERRED_RPROVIDER_u-boot-default-env ?= "u-boot-variscite"
 
 # Use i.MX Gstreamer Version
 MACHINE_GSTREAMER_1_0_PLUGIN:mx8-nxp-bsp = "imx-gst1.0-plugin"
-PREFERRED_VERSION_gstreamer1.0:mx8-nxp-bsp              ?= "1.20.0.imx"
-PREFERRED_VERSION_gstreamer1.0-plugins-base:mx8-nxp-bsp ?= "1.20.0.imx"
-PREFERRED_VERSION_gstreamer1.0-plugins-good:mx8-nxp-bsp ?= "1.20.0.imx"
-PREFERRED_VERSION_gstreamer1.0-plugins-bad:mx8-nxp-bsp  ?= "1.20.0.imx"
-PREFERRED_VERSION_gstreamer1.0-plugins-ugly:mx8-nxp-bsp ?= "1.20.%"
-PREFERRED_VERSION_gstreamer1.0-libav:mx8-nxp-bsp        ?= "1.20.%"
-PREFERRED_VERSION_gstreamer1.0-rtsp-server:mx8-nxp-bsp  ?= "1.20.%"
 
 # Add VPU and Cortex M4/M7 firmware
 MACHINE_FIRMWARE:append:mx8-nxp-bsp = " \
