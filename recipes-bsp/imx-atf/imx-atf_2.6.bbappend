@@ -6,7 +6,7 @@ SRC_URI:var-som = "\
     file://rwx-segments.patch \
 "
 SRCBRANCH:var-som = "lf_v2.6_var01"
-SRCREV:var-som = "b15d97961fd1a921624a645aef9f2e10ef54b36c"
+SRCREV:var-som = "b0039c73c070f0f1a6455c6c0d828310f12f0e8d"
 
 EXTRA_OEMAKE:append:imx8mq-var-dart = " \
     BL32_BASE=${TEE_LOAD_ADDR} \
