@@ -13,10 +13,14 @@ SRC_URI = " \
 
 # inherit cmake
 DEPENDS = "cmake-native"
+DEPENDS:append:mx9-nxp-bsp = " cortexm-toolchain-cross (=${CM_GCC})"
 
 S = "${WORKDIR}/git"
 
 MCUXPRESSO_BRANCH = "mcuxpresso_sdk_${PV}-var01"
+
+INSTALL_SCRIPTS="yes"
+INSTALL_SCRIPTS:mx9-nxp-bsp="no"
 
 CM_BOARD="INVALID"
 CM_BOARD:mx8mn-nxp-bsp="som_mx8mn"
@@ -25,6 +29,15 @@ CM_BOARD:mx8mm-nxp-bsp="dart_mx8mm"
 CM_BOARD:mx8mp-nxp-bsp="dart_mx8mp som_mx8mp"
 CM_BOARD:mx8qm-nxp-bsp="som_mx8qm"
 CM_BOARD:mx8qxp-nxp-bsp="som_mx8qx"
+CM_BOARD:mx9-nxp-bsp="mcimx93evk"
+
+CM_BUILD_TARGETS = " \
+    debug \
+    ddr_debug \
+"
+CM_BUILD_TARGETS:mx93-nxp-bsp = " \
+    release \
+"
 
 # Firmware source directories
 CM_DEMOS = " \
@@ -41,6 +54,10 @@ CM_DEMOS:mx8qm-nxp-bsp = " \
     multicore_examples/rpmsg_lite_str_echo_rtos/cm4_core1 \
     multicore_examples/rpmsg_lite_pingpong_rtos/linux_remote/cm4_core1 \
     demo_apps/hello_world/cm4_core1 \
+"
+
+CM_DEMOS:mx93-nxp-bsp = " \
+    demo_apps/ethosu_apps_rpmsg \
 "
 
 # If remoteproc is used to reload ddr firmware, special disable_cache firmware
@@ -106,18 +123,46 @@ do_compile() {
     fi
 }
 
-do_install() {
-    readonly CM_BUILD_TARGETS=" \
-        debug \
-        ddr_debug \
-    "
+do_compile:mx9-nxp-bsp() {
+    # Configure ARMGCC
+    export ARMGCC_DIR="${STAGING_DIR_NATIVE}${bindir}/cortexm-toolchain-cross-${CM_GCC}"
 
-    # Install scripts
-    install -d ${D}${sysconfdir}/remoteproc
-    install -m 0755 ${WORKDIR}/variscite-rproc-u-boot ${D}${sysconfdir}/remoteproc
-    install -m 0755 ${WORKDIR}/variscite-rproc-linux ${D}${sysconfdir}/remoteproc
-    install -m 0644 ${WORKDIR}/variscite-rproc-common.sh ${D}${sysconfdir}/remoteproc
-    install -m 0644 ${WORKDIR}/variscite-rproc.conf ${D}${sysconfdir}/remoteproc
+    # Copy and patch hello_world demo to disable_cache demo
+    if [ -e "${WORKDIR}/${DISABLE_CACHE_PATCH}" ]; then
+        # Copy hello_world demo
+        cp -r ${S}/boards/${CM_BOARD}/demo_apps/hello_world/ ${S}/boards/${CM_BOARD}/demo_apps/disable_cache
+        # Rename hello_world strings to disable_cache
+        grep -rl hello_world ${S}/boards/${CM_BOARD}/demo_apps/disable_cache | xargs sed -i 's/hello_world/disable_cache/g'
+        # Rename hello_world files to disable_cache
+        find ${S}/boards/${CM_BOARD}/demo_apps/disable_cache/ -name '*hello_world*' -exec sh -c 'mv "$1" "$(echo "$1" | sed s/hello_world/disable_cache/)"' _ {} \;
+    fi
+
+    # Build all demos in CM_DEMOS
+    for CM_DEMO in ${CM_DEMOS}; do
+        compile_fw "${S}/boards/${CM_BOARD}/${CM_DEMO}/armgcc"
+    done
+
+    # Build firmware to reset cache
+    if [ -e "${WORKDIR}/${DISABLE_CACHE_PATCH}" ]; then
+        # Apply patch to disable cache for machine
+        cd ${S} && git apply ${WORKDIR}/${DISABLE_CACHE_PATCH}
+
+        # Build the firmware
+        for CM_DEMO in ${CM_DEMOS_DISABLE_CACHE}; do
+                compile_fw "${S}/boards/${CM_BOARD}/${CM_DEMO}/armgcc"
+        done
+    fi
+}
+
+do_install() {
+    if [ "${INSTALL_SCRIPTS}" = "yes" ]; then
+        # Install scripts
+        install -d ${D}${sysconfdir}/remoteproc
+        install -m 0755 ${WORKDIR}/variscite-rproc-u-boot ${D}${sysconfdir}/remoteproc
+        install -m 0755 ${WORKDIR}/variscite-rproc-linux ${D}${sysconfdir}/remoteproc
+        install -m 0644 ${WORKDIR}/variscite-rproc-common.sh ${D}${sysconfdir}/remoteproc
+        install -m 0644 ${WORKDIR}/variscite-rproc.conf ${D}${sysconfdir}/remoteproc
+    fi
 
     # Install firmware
     install -d ${D}${nonarch_base_libdir}/firmware/
@@ -149,6 +194,12 @@ do_install() {
     done
 }
 
+do_install:append:mx9-nxp-bsp() {
+    ETHOS_U_FW="cm_ethosu_apps_rpmsg.elf.release"
+    cd ${D}${nonarch_base_libdir}/firmware/
+    ln -s "${ETHOS_U_FW}" ethosu_firmware
+}
+
 do_compile:imx8mp-var-dart() {
     # Configure ARMGCC
     export ARMGCC_DIR="${WORKDIR}/${CM_GCC}"
@@ -164,11 +215,6 @@ echo "$cm_board"
 }
 
 do_install:imx8mp-var-dart() {
-    readonly CM_BUILD_TARGETS=" \
-        debug \
-        ddr_debug \
-    "
-
     # Install scripts
     install -d ${D}${sysconfdir}/remoteproc
     install -m 0755 ${WORKDIR}/variscite-rproc-u-boot ${D}${sysconfdir}/remoteproc
