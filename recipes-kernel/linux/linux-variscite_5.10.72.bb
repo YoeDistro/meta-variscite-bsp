@@ -19,11 +19,11 @@ DEFAULT_PREFERENCE = "1"
 
 KERNEL_SRC ?= "git://github.com/varigit/linux-imx;protocol=https"
 SRCBRANCH:imx93-var-som = "lf-5.15.y_var01"
-SRCREV:imx93-var-som = "5006ade871149a113944e0f3c981656b135ecfee"
+SRCREV:imx93-var-som = "ef382d731287b82ae03f5b979a640824a13742ad"
 LINUX_VERSION:imx93-var-som = "5.15.71"
 
 SRCBRANCH = "5.15-2.0.x-imx_var01"
-SRCREV = "823c33d95f44b8d3cd61ce55b2470eecb87503dc"
+SRCREV = "84a7bb17367ea54bc7a3cce0f5de547f66452f6a"
 LINUX_VERSION = "5.15.60"
 
 SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"

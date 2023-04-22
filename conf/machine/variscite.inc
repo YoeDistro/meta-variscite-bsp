@@ -1,3 +1,4 @@
+require variscite-mirrors.inc
 INHERIT += "image-buildinfo"
 
 # Common override for all Variscite machines
