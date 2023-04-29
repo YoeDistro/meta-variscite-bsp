@@ -30,9 +30,6 @@ SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-# Fix perf build with 5.10 kernel
-SRC_URI += "file://0001-init_disassemble_info-signature-changes-causes-compi.patch"
-
 LOCALVERSION:imx6ul-var-dart = "-imx6ul"
 LOCALVERSION:imx8mp-var-dart = "-imx8mp"
 LOCALVERSION:imx8mq-var-dart = "-imx8mq"
