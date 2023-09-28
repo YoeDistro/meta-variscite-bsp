@@ -27,22 +27,30 @@ do_compile:var-som() {
     if ${DEPLOY_OPTEE}; then
         cp ${DEPLOY_DIR_IMAGE}/tee.bin ${BOOT_STAGING}
     fi
-    for target in ${IMXBOOT_TARGETS}; do
-        compile_${SOC_FAMILY}
-        if [ "$target" = "flash_linux_m4_no_v2x" ]; then
-           # Special target build for i.MX 8DXL with V2X off
-           bbnote "building ${IMX_BOOT_SOC_TARGET} - ${REV_OPTION} V2X=NO ${target}"
-           make SOC=${IMX_BOOT_SOC_TARGET} ${REV_OPTION} V2X=NO \
-                dtbs="${UBOOT_DTB_NAME} ${UBOOT_DTB_EXTRA}" \
-                flash_linux_m4
-        else
-           bbnote "building ${IMX_BOOT_SOC_TARGET} - ${REV_OPTION} ${target}"
-           make SOC=${IMX_BOOT_SOC_TARGET} ${REV_OPTION} \
-                dtbs="${UBOOT_DTB_NAME} ${UBOOT_DTB_EXTRA}" \
-                ${target}
-        fi
-        if [ -e "${BOOT_STAGING}/flash.bin" ]; then
-            cp ${BOOT_STAGING}/flash.bin ${S}/${BOOT_CONFIG_MACHINE}-${target}
-        fi
+    for type in ${UBOOT_CONFIG}; do
+        UBOOT_CONFIG_EXTRA=$type
+        UBOOT_NAME_EXTRA="u-boot-${MACHINE}.bin-$type"
+        BOOT_CONFIG_MACHINE_EXTRA="${BOOT_NAME}-${MACHINE}-${UBOOT_CONFIG_EXTRA}.bin"
+        for target in ${IMXBOOT_TARGETS}; do
+            compile_${SOC_FAMILY}
+            if [ "$target" = "flash_linux_m4_no_v2x" ]; then
+                # Special target build for i.MX 8DXL with V2X off
+                bbnote "building ${IMX_BOOT_SOC_TARGET} - ${REV_OPTION} V2X=NO ${target}"
+                make SOC=${IMX_BOOT_SOC_TARGET} ${REV_OPTION} V2X=NO \
+                    dtbs="${UBOOT_DTB_NAME} ${UBOOT_DTB_EXTRA}" \
+                    flash_linux_m4
+            else
+                bbnote "building ${IMX_BOOT_SOC_TARGET} - ${REV_OPTION} ${target}"
+                make SOC=${IMX_BOOT_SOC_TARGET} ${REV_OPTION} \
+                    dtbs="${UBOOT_DTB_NAME} ${UBOOT_DTB_EXTRA}" \
+                    ${target}
+            fi
+            if [ -e "${BOOT_STAGING}/flash.bin" ]; then
+                cp ${BOOT_STAGING}/flash.bin ${S}/${BOOT_CONFIG_MACHINE_EXTRA}-${target}
+            fi
+        done
+        unset UBOOT_NAME_EXTRA
+        unset UBOOT_CONFIG_EXTRA
     done
+    unset type
 }
