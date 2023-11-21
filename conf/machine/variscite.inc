@@ -17,7 +17,8 @@ WKS_FILE:mx8-nxp-bsp = "imx-imx-boot-singlepart.wks.in"
 WKS_FILE:mx9-nxp-bsp = "imx-imx-boot-singlepart.wks.in"
 
 # Enable optee on iMX8 BSPs
-MACHINE_FEATURES:append:use-nxp-bsp = " optee"
+MACHINE_FEATURES:append:mx8-nxp-bsp:use-nxp-bsp = " optee"
+MACHINE_FEATURES:append:mx9-nxp-bsp:use-nxp-bsp = " optee"
 
 # Set a more generic tuning for code reuse across parts
 DEFAULTTUNE:mx8-nxp-bsp:fslc     ?= "armv8a-crc-crypto"
