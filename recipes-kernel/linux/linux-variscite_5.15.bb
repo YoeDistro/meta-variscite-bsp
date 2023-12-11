@@ -29,6 +29,8 @@ LINUX_VERSION = "5.15.60"
 SRCBRANCH:imx6ul-var-dart = "lf-5.15.y_var01"
 SRCREV:imx6ul-var-dart = "ed54a5eb79177bbde3d359f92c1bf1fb7fdb1f20"
 LINUX_VERSION:imx6ul-var-dart = "5.15.71"
+SRC_URI:append:imx6ul-var-dart = " file://0001-Match-function-return-types-for-_QuerySignal.patch \
+                                   file://0001-ata-ahci-fix-enum-constants-for-gcc-13.patch"
 
 SRCBRANCH:imx7-var-som = "lf-5.15.y_var01"
 SRCREV:imx7-var-som = "ed54a5eb79177bbde3d359f92c1bf1fb7fdb1f20"

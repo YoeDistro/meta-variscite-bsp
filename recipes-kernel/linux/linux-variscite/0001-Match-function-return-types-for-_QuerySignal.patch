@@ -1,0 +1,44 @@
+From 4fc937d65b74815b7e11d02be995328605d7ac88 Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Tue, 21 Nov 2023 14:33:51 -0800
+Subject: [PATCH] Match function return types for _QuerySignal
+
+Newer compiler e.g. gcc 13 finds this enum mismatch error. Its already
+fixed in 6.4 vivante GPU kernel driver [1]
+
+Fixes
+drivers/mxc/gpu-viv/hal/os/linux/kernel/gc_hal_kernel_os.c:5875:1: error: conflicting types for '_QuerySignal' due to enum/integer mismatch; have 'gceST
+ATUS(struct _gckOS *, void *)' {aka 'enum _gceSTATUS(struct _gckOS *, void *)'} [-Werror=enum-int-mismatch]
+ 5875 | _QuerySignal(
+      | ^~~~~~~~~~~~
+In file included from /mnt/b/yoe/master/build/tmp/work-shared/imx6ul-var-dart/kernel-source/drivers/mxc/gpu-viv/hal/os/linux/kernel/gc_hal_kernel_os.c:56:
+/mnt/b/yoe/master/build/tmp/work-shared/imx6ul-var-dart/kernel-source/drivers/mxc/gpu-viv/hal/os/linux/kernel/gc_hal_kernel_linux.h:322:1: note: previous declaration of '_QuerySignal' with type 'gctBOOL(struct _gckOS *, vo
+id *)' {aka 'int(struct _gckOS *, void *)'}
+  322 | _QuerySignal(
+      | ^~~~~~~~~~~~
+cc1: all warnings being treated as errors
+
+[1] https://github.com/Freescale/kernel-module-imx-gpu-viv/commit/6bd4a7248992ec270ced9c09d9e90e0c3b048626#diff-f76e88478e6e50534d0ae4353d9594d022171b8d22863e635b0a8611abd24e0b
+
+Upstream-Status: Pending
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ drivers/mxc/gpu-viv/hal/os/linux/kernel/gc_hal_kernel_linux.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/mxc/gpu-viv/hal/os/linux/kernel/gc_hal_kernel_linux.h b/drivers/mxc/gpu-viv/hal/os/linux/kernel/gc_hal_kernel_linux.h
+index a436edb11d9a..43beb7a06f73 100644
+--- a/drivers/mxc/gpu-viv/hal/os/linux/kernel/gc_hal_kernel_linux.h
++++ b/drivers/mxc/gpu-viv/hal/os/linux/kernel/gc_hal_kernel_linux.h
+@@ -318,7 +318,7 @@ _ConvertLogical2Physical(
+     OUT gctPHYS_ADDR_T * Physical
+     );
+ 
+-gctBOOL
++gceSTATUS
+ _QuerySignal(
+     IN gckOS Os,
+     IN gctSIGNAL Signal
+-- 
+2.43.0
+
