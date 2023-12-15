@@ -5,10 +5,10 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=4725015cb0be7be389cf06deeae3683d"
 DEPENDS = "libnl"
 RDEPENDS:${PN} = "linux-firmware-wl18xx"
 
-#Tag: R8.7_SP3 (8.7.3)
-SRCREV = "5048b59a444ac59ba7171d6e122d5a84581aebf2"
-SRC_URI = "git://git.ti.com/wilink8-wlan/18xx-ti-utils.git;branch=master \
-           file://0001-plt.h-Do-not-define-EFUSE_PARAMETER_TYPE_ENMT-type-e.patch \  
+# Tag: R8.8 (8.8)
+SRCREV = "b23772347318e5e3f724e9686f271efc01512708"
+SRC_URI = "git://git.ti.com/cgit/wilink8-wlan/18xx-ti-utils;protocol=https;branch=master \
+           file://0001-plt.h-Do-not-define-EFUSE_PARAMETER_TYPE_ENMT-type-e.patch \
           "
 
 S = "${WORKDIR}/git"
