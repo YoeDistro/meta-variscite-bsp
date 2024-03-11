@@ -22,6 +22,7 @@ KERNEL_SRC ?= "git://github.com/varigit/linux-imx;protocol=https"
 SRCBRANCH = "lf-6.1.y_var03"
 SRCREV = "a4b3cc1dbbb396284e501b938aa79d2dfd4f1a98"
 LINUX_VERSION = "6.1.36"
+KERNEL_DEVICETREE_32BIT_COMPATIBILITY_UPDATE = "1"
 
 SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
 
