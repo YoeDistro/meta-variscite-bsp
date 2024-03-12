@@ -6,3 +6,4 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 SRC_URI:append = " \
 	file://0001-fix-display-fullscreen-vertical-positioning-issue.patch \
 "
+CFLAGS:append = " -Wno-error=int-conversion -Wno-error=return-mismatch -Wno-error=implicit-function-declaration -Wno-error=incompatible-pointer-types -Wno-error=missing-prototypes"
