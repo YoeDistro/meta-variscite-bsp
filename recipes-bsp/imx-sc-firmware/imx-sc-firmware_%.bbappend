@@ -22,9 +22,9 @@ SRC_URI[gcc-arm-none-eabi.sha256sum] = "fb31fbdfe08406ece43eef5df623c0b2deb8b53e
 unset do_compile[noexec]
 
 do_compile() {
-    export TOOLS=${WORKDIR}
-    cd ${WORKDIR}/git/src/scfw_export_${SC_MACHINE_NAME}/
+    export TOOLS=${UNPACKDIR}
+    cd ${UNPACKDIR}/git/src/scfw_export_${SC_MACHINE_NAME}/
     oe_runmake clean-${SC_MX8_FAMILY}
     oe_runmake ${SC_MX8_FAMILY} R=B0 B=var_som V=1
-    cp ${WORKDIR}/git/src/scfw_export_${SC_MACHINE_NAME}/build_${SC_MACHINE_NAME}/scfw_tcm.bin ${S}/${SC_FIRMWARE_NAME}
+    cp ${UNPACKDIR}/git/src/scfw_export_${SC_MACHINE_NAME}/build_${SC_MACHINE_NAME}/scfw_tcm.bin ${S}/${SC_FIRMWARE_NAME}
 }
