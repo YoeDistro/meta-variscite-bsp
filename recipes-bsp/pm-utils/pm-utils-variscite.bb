@@ -19,10 +19,10 @@ S = "${WORKDIR}"
 
 do_install() {
 	install -d ${D}/${sysconfdir}/pm/sleep.d
-	install -m 0755 ${WORKDIR}/00-ot.sh ${D}/${sysconfdir}/pm/sleep.d
-	install -m 0755 ${WORKDIR}/01-bt.sh ${D}/${sysconfdir}/pm/sleep.d
-	install -m 0755 ${WORKDIR}/02-wifi.sh ${D}/${sysconfdir}/pm/sleep.d
-	install -m 0755 ${WORKDIR}/03-eth.sh ${D}/${sysconfdir}/pm/sleep.d
+	install -m 0755 ${UNPACKDIR}/00-ot.sh ${D}/${sysconfdir}/pm/sleep.d
+	install -m 0755 ${UNPACKDIR}/01-bt.sh ${D}/${sysconfdir}/pm/sleep.d
+	install -m 0755 ${UNPACKDIR}/02-wifi.sh ${D}/${sysconfdir}/pm/sleep.d
+	install -m 0755 ${UNPACKDIR}/03-eth.sh ${D}/${sysconfdir}/pm/sleep.d
 
 	echo "ETH_SUSPEND_MODE=\"${PM_ETH_SUSPEND_MODE}\"" > ${WORKDIR}/var_pm_config
 	install -m 0644 ${WORKDIR}/var_pm_config ${D}/${sysconfdir}/pm/
