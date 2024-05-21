@@ -23,12 +23,12 @@ S = "${WORKDIR}"
 do_install() {
 
 	install -d ${D}${sysconfdir}/bluetooth
-	install -m 0755 ${WORKDIR}/variscite-bt ${D}/${sysconfdir}/bluetooth
+	install -m 0755 ${UNPACKDIR}/variscite-bt ${D}/${sysconfdir}/bluetooth
 
 	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 		install -d ${D}${systemd_unitdir}/system
 		install -d ${D}${sysconfdir}/systemd/system/multi-user.target.wants
-		install -m 0644 ${WORKDIR}/variscite-bt.service ${D}/${systemd_unitdir}/system
+		install -m 0644 ${UNPACKDIR}/variscite-bt.service ${D}/${systemd_unitdir}/system
 
 		ln -sf ${systemd_unitdir}/system/variscite-bt.service \
 			${D}${sysconfdir}/systemd/system/multi-user.target.wants/variscite-bt.service
