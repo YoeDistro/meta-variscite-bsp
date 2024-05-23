@@ -14,8 +14,6 @@ SRC_URI = " \
 "
 SRC_URI:append:imx8mp-var-dart = " file://04-usbhub.sh"
 
-S = "${WORKDIR}"
-
 FILES:${PN}:append = " \
     ${sysconfdir}/pm/* \
     ${sysconfdir}/pm/sleep.d/* \
