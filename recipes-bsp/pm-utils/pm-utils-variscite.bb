@@ -15,8 +15,6 @@ SRC_URI = " \
 	file://03-eth.sh \
 "
 
-S = "${WORKDIR}"
-
 do_install() {
 	install -d ${D}/${sysconfdir}/pm/sleep.d
 	install -m 0755 ${UNPACKDIR}/00-ot.sh ${D}/${sysconfdir}/pm/sleep.d
