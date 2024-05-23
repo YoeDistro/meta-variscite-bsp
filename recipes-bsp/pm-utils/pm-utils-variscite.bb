@@ -16,8 +16,6 @@ SRC_URI = " \
 "
 SRC_URI:append:imx91-var-som = " file://04-backlight.sh"
 
-S = "${WORKDIR}"
-
 do_install() {
 	install -d ${D}/${sysconfdir}/pm/sleep.d
 	install -m 0755 ${WORKDIR}/00-ot.sh ${D}/${sysconfdir}/pm/sleep.d
