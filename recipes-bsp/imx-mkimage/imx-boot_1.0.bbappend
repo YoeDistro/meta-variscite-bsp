@@ -30,7 +30,7 @@ do_compile:var-som() {
     for type in ${UBOOT_CONFIG}; do
         UBOOT_CONFIG_EXTRA=$type
         UBOOT_NAME_EXTRA="u-boot-${MACHINE}.bin-$type"
-        BOOT_CONFIG_MACHINE_EXTRA="${BOOT_NAME}-${MACHINE}-${UBOOT_CONFIG_EXTRA}.bin"
+        BOOT_CONFIG_MACHINE_EXTRA="imx-boot-${MACHINE}-${UBOOT_CONFIG_EXTRA}.bin"
         for target in ${IMXBOOT_TARGETS}; do
             compile_${SOC_FAMILY}
             if [ "$target" = "flash_linux_m4_no_v2x" ]; then
