@@ -27,7 +27,7 @@ bindir = "${exec_prefix}/bin/"
 
 do_install() {
     install -d ${D}${bindir}cortexm-toolchain-cross-${PV}
-    tar xjf ${WORKDIR}/${TOOLCHAIN_TARBALL} -C ${D}${bindir}cortexm-toolchain-cross-${PV} --strip-components=1
+    tar xjf ${UNPACKDIR}/${TOOLCHAIN_TARBALL} -C ${D}${bindir}cortexm-toolchain-cross-${PV} --strip-components=1
 }
 
 # This toolchain is not built but packaged from
