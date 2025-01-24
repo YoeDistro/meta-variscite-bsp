@@ -6,3 +6,6 @@ SRC_URI:var-som = "git://github.com/varigit/imx-firmware.git;protocol=https;bran
 SRCBRANCH:var-som = "lf-6.1.36_2.1.0-var01"
 SRCREV:var-som = "f0d834846d0d6339a73a97e7816f68b41f345b96"
 LIC_FILES_CHKSUM:var-som = "file://LICENSE.txt;md5=db4762b09b6bda63da103963e6e081de"
+
+FILES:${PN}-nxp8997-common += "${nonarch_base_libdir}/firmware/nxp/uartuart8997_bt_v4.bin"
+FILES:${PN}-nxp9098-common += "${nonarch_base_libdir}/firmware/nxp/uartuart9098_bt_v1.bin"
