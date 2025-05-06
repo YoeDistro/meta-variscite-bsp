@@ -20,7 +20,7 @@ DEFAULT_PREFERENCE = "1"
 KERNEL_SRC ?= "git://github.com/varigit/linux-imx;protocol=https"
 
 SRCBRANCH = "lf-6.1.y_var03"
-SRCREV = "7248bd964cd9ea4c9bb489eaff441d379ed7988e"
+SRCREV = "6f655f2dd0791d98425c8913a91eb7ed8c6eb8d1"
 LINUX_VERSION = "6.1.36"
 KERNEL_DEVICETREE_32BIT_COMPATIBILITY_UPDATE = "1"
 
