@@ -17,8 +17,6 @@ DEPENDS:append = " cortexm-toolchain-cross (=${CM_GCC})"
 
 inherit deploy
 
-S = "${WORKDIR}/git"
-
 MCUXPRESSO_BRANCH = "mcuxpresso_sdk_${PV}-var01"
 MCUXPRESSO_BRANCH:mx9-nxp-bsp = "mcuxpresso_sdk_${PV}-var02"
 
