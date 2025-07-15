@@ -1,7 +1,5 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-UNPACKDIR ??= "${WORKDIR}"
-
 SRC_URI:append:var-som = " \
 	file://variscite-blacklist.conf \
 "

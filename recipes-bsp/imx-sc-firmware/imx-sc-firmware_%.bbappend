@@ -12,7 +12,7 @@ SCFW_BRANCH = "1.15.0"
 SRCREV = "0d938f5c0d6d3e8423154d3383570e4ae1647fa3"
 
 SRC_URI += " \
-    git://github.com/varigit/imx-sc-firmware.git;protocol=https;branch=${SCFW_BRANCH}; \
+    git://github.com/varigit/imx-sc-firmware.git;protocol=https;branch=${SCFW_BRANCH};subdir=${BP}-variscite \
     https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2018q4/gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2;name=gcc-arm-none-eabi \
 "
 
@@ -23,8 +23,8 @@ unset do_compile[noexec]
 
 do_compile() {
     export TOOLS=${UNPACKDIR}
-    cd ${UNPACKDIR}/git/src/scfw_export_${SC_MACHINE_NAME}/
+    cd ${UNPACKDIR}/${BP}-variscite/src/scfw_export_${SC_MACHINE_NAME}/
     oe_runmake clean-${SC_MX8_FAMILY}
     oe_runmake ${SC_MX8_FAMILY} R=B0 B=var_som V=1
-    cp ${UNPACKDIR}/git/src/scfw_export_${SC_MACHINE_NAME}/build_${SC_MACHINE_NAME}/scfw_tcm.bin ${S}/${SC_FIRMWARE_NAME}
+    cp ${UNPACKDIR}/${BP}-variscite/src/scfw_export_${SC_MACHINE_NAME}/build_${SC_MACHINE_NAME}/scfw_tcm.bin ${S}/${SC_FIRMWARE_NAME}
 }
