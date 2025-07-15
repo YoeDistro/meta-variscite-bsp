@@ -7,6 +7,7 @@ LICENSE = "BSD-3-Clause"
 
 # inherit cmake
 DEPENDS:append = " cmake-native cortexm-toolchain-cross (=${CM_GCC})"
+INHIBIT_DEFAULT_DEPS = "1"
 
 SRC_URI = " \
     git://github.com/varigit/freertos-variscite.git;protocol=https;branch=${MCUXPRESSO_BRANCH}; \
@@ -128,6 +129,7 @@ compile_fw() {
       -fdebug-prefix-map=${PREFIX_BASE} \
     "
 
+    sed -i 's/^cmake /cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 /' build_all.sh
     LDFLAGS="" \
     CFLAGS="${BB_CFLAGS}" \
     CXXFLAGS="${BB_CXXFLAGS}" \
@@ -137,7 +139,7 @@ compile_fw() {
 
 do_compile() {
     # Configure ARMGCC
-    export ARMGCC_DIR="${STAGING_DIR_NATIVE}${bindir}/cortexm-toolchain-cross-${CM_GCC}"
+    export ARMGCC_DIR="${STAGING_BINDIR_TOOLCHAIN}/cortexm-toolchain-cross-${CM_GCC}"
 
     # Copy and patch hello_world demo to disable_cache demo
     if [ -e "${WORKDIR}/${DISABLE_CACHE_PATCH}" ]; then
