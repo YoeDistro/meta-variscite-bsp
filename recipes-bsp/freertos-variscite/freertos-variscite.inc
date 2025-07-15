@@ -12,8 +12,9 @@ SRC_URI = " \
 "
 
 # inherit cmake
-DEPENDS = "cmake-native"
-DEPENDS:append = " cortexm-toolchain-cross (=${CM_GCC})"
+INHIBIT_DEFAULT_DEPS = "1"
+
+DEPENDS = "cmake-native cortexm-toolchain-cross (=${CM_GCC})"
 
 inherit deploy
 
@@ -111,12 +112,13 @@ compile_fw() {
     if grep -q "make -j" build_all.sh; then
         sed -i "s/make -j.*[0-9]*/make ${PARALLEL_MAKE}/g" build_all.sh
     fi
+    sed -i 's/^cmake /cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 /' build_all.sh
     LDFLAGS="" CFLAGS="" CXXFLAGS="" ./build_all.sh > /dev/null
 }
 
 do_compile() {
     # Configure ARMGCC
-    export ARMGCC_DIR="${STAGING_DIR_NATIVE}${bindir}/cortexm-toolchain-cross-${CM_GCC}"
+    export ARMGCC_DIR="${STAGING_BINDIR_TOOLCHAIN}/cortexm-toolchain-cross-${CM_GCC}"
 
     # Copy and patch hello_world demo to disable_cache demo
     if [ -e "${UNPACKDIR}/${DISABLE_CACHE_PATCH}" ]; then
