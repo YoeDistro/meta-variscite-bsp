@@ -29,7 +29,6 @@ SRC_URI:append = " \
 	file://wl1271-nvs.bin \
 "
 do_install:append() {
-	install -d ${D}${nonarch_base_libdir}/firmware/bcm
 	install -m 0755 ${UNPACKDIR}/lib/firmware/brcm/* ${D}${nonarch_base_libdir}/firmware/brcm/
 	install -m 0755 ${UNPACKDIR}/tibt/initscripts/TIInit_*.bts ${D}${nonarch_base_libdir}/firmware/ti-connectivity
 	install -m 0755 ${UNPACKDIR}/tiwlan/*.bin ${D}${nonarch_base_libdir}/firmware/ti-connectivity
@@ -53,10 +52,12 @@ do_install:append() {
 FILES:${PN}-bcm4339 += " \
   ${nonarch_base_libdir}/firmware/brcm/BCM4335C0.hcd \
   ${nonarch_base_libdir}/firmware/brcm/brcmfmac4339-sdio* \
+  ${nonarch_base_libdir}/firmware/brcm/BCM4335C0_v003.001.009.0202.0809.hcd \
 "
 
 FILES:${PN}-bcm43430 += " \
   ${nonarch_base_libdir}/firmware/brcm/BCM43430A1.hcd \
   ${nonarch_base_libdir}/firmware/brcm/brcmfmac43430-sdio* \
+  ${nonarch_base_libdir}/firmware/brcm/BCM43430A1_v001.002.009.0163.0531.hcd \
 "
 
