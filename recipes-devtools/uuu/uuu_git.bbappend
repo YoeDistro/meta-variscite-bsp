@@ -8,3 +8,7 @@ SRC_URI += "file://0001-include-missing-stdint.h.patch \
 DEPENDS:append = " zstd"
 
 COMPATIBLE_MACHINE:remove = "(imx-generic-bsp)"
+
+do_configure:prepend() {
+    echo "${PV}" > ${S}/.tarball-version
+}

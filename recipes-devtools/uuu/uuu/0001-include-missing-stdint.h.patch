@@ -19,8 +19,6 @@ Signed-off-by: Khem Raj <raj.khem@gmail.com>
  uuu/buildincmd.h | 1 +
  2 files changed, 2 insertions(+)
 
-diff --git a/libuuu/libcomm.h b/libuuu/libcomm.h
-index 93ab7e5..296297d 100644
 --- a/libuuu/libcomm.h
 +++ b/libuuu/libcomm.h
 @@ -28,6 +28,7 @@
@@ -31,8 +29,6 @@ index 93ab7e5..296297d 100644
  #include <string>
  #include <stdarg.h>
  #include <locale>
-diff --git a/uuu/buildincmd.h b/uuu/buildincmd.h
-index 9415117..3a94679 100644
 --- a/uuu/buildincmd.h
 +++ b/uuu/buildincmd.h
 @@ -31,6 +31,7 @@
@@ -43,6 +39,13 @@ index 9415117..3a94679 100644
  #include <map>
  #include <string>
  #include <vector>
--- 
-2.44.0
-
+--- a/libuuu/cmd.h
++++ b/libuuu/cmd.h
+@@ -31,6 +31,7 @@
+ 
+ #pragma once
+ 
++#include <cstdint>
+ #include <map>
+ #include <memory>
+ #include <string>
