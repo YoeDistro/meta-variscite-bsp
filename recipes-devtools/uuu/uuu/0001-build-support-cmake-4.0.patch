@@ -1,0 +1,44 @@
+From d6f1531b9aa9fc16fc130153b98b4cacdc8a968b Mon Sep 17 00:00:00 2001
+From: Rui Chen <rui@chenrui.dev>
+Date: Mon, 31 Mar 2025 23:59:26 -0400
+Subject: [PATCH] build: support cmake 4.0
+
+Upstream-Status: Backport [https://github.com/nxp-imx/mfgtools/pull/467]
+Signed-off-by: Rui Chen <rui@chenrui.dev>
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ CMakeLists.txt        | 2 +-
+ libuuu/CMakeLists.txt | 2 +-
+ uuu/CMakeLists.txt    | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 90a0197..5258890 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.4)
++cmake_minimum_required(VERSION 3.5)
+
+ project(uuu)
+
+diff --git a/libuuu/CMakeLists.txt b/libuuu/CMakeLists.txt
+index 8dcb0f6..587299b 100644
+--- a/libuuu/CMakeLists.txt
++++ b/libuuu/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.4)
++cmake_minimum_required(VERSION 3.5)
+
+ set(CMAKE_CXX_STANDARD 14)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+diff --git a/uuu/CMakeLists.txt b/uuu/CMakeLists.txt
+index a2fb5ba..5905d9b 100644
+--- a/uuu/CMakeLists.txt
++++ b/uuu/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.4)
++cmake_minimum_required(VERSION 3.5)
+
+ set(CMAKE_CXX_STANDARD 14)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
