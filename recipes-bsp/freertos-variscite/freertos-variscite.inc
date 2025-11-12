@@ -98,7 +98,7 @@ CM_DEMOS_EXCLUDE[bin] = "${CM_DEMOS_EXCLUDE_UBOOT}"
 #   echo stop > /sys/class/remoteproc/remoteproc0/state
 CM_DEMOS_DISABLE_CACHE = ""
 CM_DEMOS_DISABLE_CACHE:mx8qxp-nxp-bsp = "demo_apps/disable_cache"
-CM_DEMOS_DISABLE_CACHE:mx8qm-nxp-bsp = "demo_apps/disable_cache/cm4_core0 demo_apps/disable_cache/cm4_core1"
+#CM_DEMOS_DISABLE_CACHE:mx8qm-nxp-bsp = "demo_apps/disable_cache/cm4_core0 demo_apps/disable_cache/cm4_core1"
 
 DISABLE_CACHE_PATCH = "disable_cache.patch"
 DISABLE_CACHE_PATCH:imx8qxp-var-som = "disable_cache_${PV}.patch"
@@ -139,7 +139,7 @@ compile_fw() {
 
 do_compile() {
     # Configure ARMGCC
-    export ARMGCC_DIR="${STAGING_BINDIR_TOOLCHAIN}/cortexm-toolchain-cross-${CM_GCC}"
+    export ARMGCC_DIR="${STAGING_BINDIR_NATIVE}/cortexm-toolchain-cross-${CM_GCC}"
 
     # Copy and patch hello_world demo to disable_cache demo
     if [ -e "${WORKDIR}/${DISABLE_CACHE_PATCH}" ]; then
