@@ -12,19 +12,14 @@ Signed-off-by: FrancescoFerraro <francesco.f@variscite.com>
  src/uboot_env.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/src/uboot_env.c b/src/uboot_env.c
-index ae85c7e..ccda340 100644
 --- a/src/uboot_env.c
 +++ b/src/uboot_env.c
-@@ -1630,7 +1630,7 @@ cleanup:
+@@ -1409,7 +1409,7 @@ cleanup:
  	return status;
  }
  
--#define LINE_LENGTH 1024
-+#define LINE_LENGTH 4096
+-#define LINE_LENGTH 2048
++#define LINE_LENGTH 4098
  int libuboot_load_file(struct uboot_ctx *ctx, const char *filename)
  {
  	FILE *fp;
--- 
-2.45.1
-
