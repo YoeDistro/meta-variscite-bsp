@@ -8,7 +8,7 @@ SC_MX8_FAMILY:mx8qxp-nxp-bsp = "qx"
 SC_MACHINE_NAME = "mx8${SC_MX8_FAMILY}_b0"
 
 SRC_URI:append = " \
-    git://github.com/varigit/imx-sc-firmware.git;protocol=https;branch=${SCFW_BRANCH}; \
+    git://github.com/varigit/imx-sc-firmware.git;protocol=https;branch=${SCFW_BRANCH};subdir=${BP}-variscite \
     https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2018q4/gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2;name=gcc-arm-none-eabi \
 "
 
@@ -21,11 +21,11 @@ SRC_URI[gcc-arm-none-eabi.sha256sum] = "fb31fbdfe08406ece43eef5df623c0b2deb8b53e
 unset do_compile[noexec]
 
 do_compile() {
-    export TOOLS=${WORKDIR}
-    cd ${WORKDIR}/git/src/scfw_export_${SC_MACHINE_NAME}/
+    export TOOLS=${UNPACKDIR}
+    cd ${UNPACKDIR}/${BP}-variscite/src/scfw_export_${SC_MACHINE_NAME}/
     oe_runmake clean-${SC_MX8_FAMILY}
     oe_runmake ${SC_MX8_FAMILY} R=B0 B=var_som V=1
-    cp ${WORKDIR}/git/src/scfw_export_${SC_MACHINE_NAME}/build_${SC_MACHINE_NAME}/scfw_tcm.bin ${S}/${SC_FIRMWARE_NAME}
+    cp ${UNPACKDIR}/${BP}-variscite/src/scfw_export_${SC_MACHINE_NAME}/build_${SC_MACHINE_NAME}/scfw_tcm.bin ${S}/${SC_FIRMWARE_NAME}
 }
 
 DEBUG_PREFIX_MAP:remove = "-fcanon-prefix-map"
