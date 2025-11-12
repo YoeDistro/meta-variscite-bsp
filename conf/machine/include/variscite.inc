@@ -77,14 +77,12 @@ MACHINE_EXTRA_RDEPENDS += " \
     kernel-modules \
     pm-utils-variscite \
     u-boot-fw-utils \
-    u-boot-splash \
     u-boot-default-env \
     ${@bb.utils.contains('MACHINE_FEATURES', 'nxpiw612-sdio', 'iw612-utils', '', d)} \
 "
 
 CORE_IMAGE_EXTRA_INSTALL += " \
     packagegroup-tools-bluetooth \
-    packagegroup-variscite-devel \
     ${PREFERRED_CONNECTIVITY_MANAGER_PACKAGES} \
 "
 
