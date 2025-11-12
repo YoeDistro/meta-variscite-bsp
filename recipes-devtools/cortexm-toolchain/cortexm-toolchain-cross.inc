@@ -17,17 +17,20 @@ inherit cross
 TUNE_PKGARCH:mx8-nxp-bsp = "armv7e-m"
 TUNE_PKGARCH:mx9-nxp-bsp = "armv8-m"
 
-TARGET_ARCH = "arm32"
+# Ignore the toolchain install dir, it will create its own in parallel
+CROSS_TARGET_SYS_DIR:class-cross = ""
 
 SRC_URI = " \
     https://developer.arm.com/-/media/Files/downloads/gnu-rm/${PV}/${TOOLCHAIN_TARBALL};name=cortexm-toolchain;unpack=0 \
 "
 
+S = "${UNPACKDIR}"
+
 bindir = "${exec_prefix}/bin/"
 
 do_install() {
-    install -d ${D}${bindir}cortexm-toolchain-cross-${PV}
-    tar xjf ${UNPACKDIR}/${TOOLCHAIN_TARBALL} -C ${D}${bindir}cortexm-toolchain-cross-${PV} --strip-components=1
+    install -d ${D}${bindir}/cortexm-toolchain-cross-${PV}
+    tar xjf ${UNPACKDIR}/${TOOLCHAIN_TARBALL} -C ${D}${bindir}/cortexm-toolchain-cross-${PV} --strip-components=1
 }
 
 # This toolchain is not built but packaged from
