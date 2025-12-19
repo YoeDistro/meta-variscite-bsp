@@ -26,10 +26,6 @@ do_install() {
 	install -m 0644 ${WORKDIR}/var_pm_config ${D}/${sysconfdir}/pm/
 }
 
-do_install:append:imx91-var-som() {
-	install -m 0755 ${UNPACKDIR}/04-backlight.sh ${D}/${sysconfdir}/pm/sleep.d
-}
-
 FILES:${PN} = " \
 	${sysconfdir}/pm/* \
 	${sysconfdir}/pm/sleep.d/* \
