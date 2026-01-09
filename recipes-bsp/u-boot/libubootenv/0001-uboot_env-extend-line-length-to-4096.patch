@@ -14,8 +14,8 @@ Signed-off-by: FrancescoFerraro <francesco.f@variscite.com>
 
 --- a/src/uboot_env.c
 +++ b/src/uboot_env.c
-@@ -1409,7 +1409,7 @@ cleanup:
- 	return status;
+@@ -766,7 +766,7 @@ static int libuboot_load(struct uboot_ct
+ 	return ctx->valid ? 0 : -ENODATA;
  }
  
 -#define LINE_LENGTH 2048
