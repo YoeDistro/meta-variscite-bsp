@@ -20,7 +20,7 @@ KERNEL_SRC ?= "git://github.com/varigit/linux-imx;protocol=https"
 
 SRCBRANCH = "lf-6.6.y_6.6.52-2.2.0_var01"
 SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
-SRCREV = "84484973a2907b65f62d3e351c730651a6e534ae"
+SRCREV = "c2cab9d2643849a2df4ac0d764523d03f9304e30"
 
 LINUX_VERSION = "6.6.52"
 LINUX_VERSION_EXTENSION = "-var-lts-next"
@@ -49,6 +49,7 @@ pkg_postinst:kernel-devicetree:append:imx8mq-var-dart () {
 pkg_postinst:kernel-devicetree:append:imx8qxp-var-som () {
     cd $D/boot
     ln -s ${DEFAULT_DTB_PREFIX}-${DEFAULT_DTB}.dtb ${DEFAULT_DTB_PREFIX}.dtb
+    ln -s ${DEFAULT_DTB_PREFIX}-1.x-${DEFAULT_DTB}.dtb ${DEFAULT_DTB_PREFIX}-1.x.dtb
 }
 
 pkg_postinst:kernel-devicetree:append:imx8qm-var-som () {
