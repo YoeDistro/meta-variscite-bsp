@@ -37,7 +37,12 @@ PREFERRED_CONNECTIVITY_MANAGER_PACKAGES	?= " \
 "
 
 # Variscite BSP default providers
+PREFERRED_PROVIDER_virtual/kernel ?= "linux-variscite"
+
+PREFERRED_PROVIDER_u-boot ?= "u-boot-variscite"
+PREFERRED_PROVIDER_virtual/bootloader ?= "u-boot-variscite"
 PREFERRED_RPROVIDER_u-boot-default-env ?= "u-boot-variscite"
+PREFERRED_PROVIDER_u-boot-fw-utils ?= "u-boot-fw-utils"
 
 # Use i.MX Gstreamer Version
 MACHINE_GSTREAMER_1_0_PLUGIN:mx6-nxp-bsp = "imx-gst1.0-plugin"
@@ -81,7 +86,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
     ${PREFERRED_CONNECTIVITY_MANAGER_PACKAGES} \
 "
 
-IMAGE_FSTYPES = "tar.zst wic.zst wic.bmap"
+IMAGE_FSTYPES = "tar.zst wic.zst wic.bmap wic"
 
 # Use bluez-alsa instead of pulseaudio
 DISTRO_FEATURES_BACKFILL_CONSIDERED:append = " pulseaudio"

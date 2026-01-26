@@ -20,7 +20,7 @@ KERNEL_SRC ?= "git://github.com/varigit/linux-imx;protocol=https"
 
 SRCBRANCH = "lf-6.6.y_6.6.52-2.2.0_var01"
 SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
-SRCREV = "a66c1161658b6e1b94d20e65ccbdd72cb7ed0917"
+SRCREV = "7856afe23788bd7af0b8ec45d3c8c9efbd872f71"
 
 LINUX_VERSION = "6.6.52"
 LINUX_VERSION_EXTENSION = "-var-lts-next"
@@ -55,7 +55,9 @@ pkg_postinst:kernel-devicetree:append:imx8qxp-var-som () {
 pkg_postinst:kernel-devicetree:append:imx8qm-var-som () {
     cd $D/boot
     ln -s ${DEFAULT_DTB_PREFIX}-${DEFAULT_DTB}.dtb ${DEFAULT_DTB_PREFIX}.dtb
+    ln -s ${DEFAULT_DTB_PREFIX}-1.x-${DEFAULT_DTB}.dtb ${DEFAULT_DTB_PREFIX}-1.x.dtb
     ln -s imx8qp-var-som-symphony-${DEFAULT_DTB}.dtb imx8qp-var-som-symphony.dtb
+    ln -s imx8qp-var-som-symphony-1.x-${DEFAULT_DTB}.dtb imx8qp-var-som-symphony-1.x.dtb
     ln -s imx8qm-var-spear-sp8customboard-${DEFAULT_DTB}.dtb imx8qm-var-spear-sp8customboard.dtb
     ln -s imx8qp-var-spear-sp8customboard-${DEFAULT_DTB}.dtb imx8qp-var-spear-sp8customboard.dtb
 }
