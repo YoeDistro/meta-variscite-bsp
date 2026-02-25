@@ -1,19 +1,18 @@
-SECTION = "base"
 SUMMARY = "Variscite specific extensions to pm-utils"
 DESCRIPTION = "Scripts and utilities for power management specific to Variscite platforms."
+SECTION = "base"
 LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-2.0-only;md5=801f80980d171dd6425610833a22dbe6"
 
 PM_ETH_SUSPEND_MODE ?= "disabled"
 
-RDEPENDS:${PN} = "pm-utils"
-
 SRC_URI = " \
-	file://00-ot.sh \
-	file://01-eth.sh \
-	file://02-bt.sh \
-	file://03-wifi.sh \
+    file://00-ot.sh \
+    file://01-eth.sh \
+    file://02-bt.sh \
+    file://03-wifi.sh \
 "
+SRC_URI:append:imx8mp-var-dart = " file://04-usbhub.sh"
 
 do_install() {
 	install -d ${D}/${sysconfdir}/pm/sleep.d
