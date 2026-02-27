@@ -20,6 +20,9 @@ do_install() {
 	install -m 0755 ${UNPACKDIR}/01-eth.sh ${D}/${sysconfdir}/pm/sleep.d
 	install -m 0755 ${UNPACKDIR}/02-bt.sh ${D}/${sysconfdir}/pm/sleep.d
 	install -m 0755 ${UNPACKDIR}/03-wifi.sh ${D}/${sysconfdir}/pm/sleep.d
+    if [ "${MACHINE}" = "imx8mp-var-dart" ]; then
+        install -m 0755 ${UNPACKDIR}/04-usbhub.sh ${D}/${sysconfdir}/pm/sleep.d
+    fi
 
 	echo "ETH_SUSPEND_MODE=\"${PM_ETH_SUSPEND_MODE}\"" > ${WORKDIR}/var_pm_config
 	install -m 0644 ${WORKDIR}/var_pm_config ${D}/${sysconfdir}/pm/
