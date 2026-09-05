@@ -22,6 +22,12 @@ SRCBRANCH = "lf-6.6.y_6.6.52-2.2.0_var01"
 SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
 SRCREV = "c1d7071cdbd74b863318cef6e473940037659df9"
 
+SRC_URI += "\
+    file://0001-extract-cert-Wrap-key_pass-with-ifdef-USE_PKCS11_ENG.patch \
+    file://0002-sign-file-extract-cert-move-common-SSL-helper-functi.patch \
+    file://0003-sign-file-extract-cert-avoid-using-deprecated-ERR_ge.patch \
+    file://0004-sign-file-extract-cert-use-pkcs11-provider-for-OPENS.patch \
+"
 LINUX_VERSION = "6.6.52"
 LINUX_VERSION_EXTENSION = "-var-lts-next"
 
